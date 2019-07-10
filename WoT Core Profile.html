@@ -11,7 +11,7 @@
 		lint : {
 			"no-headingless-sections" : false,
 		},
-		specStatus : "ED",
+		specStatus : "base",
 		noRecTrack : "true",
 		maxTocLevel : 6,
 		processVersion : 2017,
@@ -65,19 +65,21 @@
 </head>
 <body>
 	<section id="abstract">
-		<p>
-			The W3C WoT Thing Description (<a
-				href="https://w3c.github.io/wot-thing-description">https://w3c.github.io/wot-thing-description</a>)
-			defines a very powerful description language to describe myriads of
-			very different devices, which may be connected over various
-			protocols. The format is very flexible and open and puts very few
-			normative requirements on devices that implement it.
-		</p>
+		<p>The W3C WoT Thing Architecture [[wot-architecture]] and WoT
+			Thing Description [[wot-thing-description]] defines a very powerful
+			description mechanism and a format to describe myriads of very
+			different devices, which may be connected over various protocols. The
+			format is very flexible and open and puts very few normative
+			requirements on devices that implement it.</p>
 
 		<p>However, this flexibility de-facto prevents interoperability,
-			since it permits implementers to make many choices, and does not
-			provide guarantees of common behavior between implementations.</p>
-
+			since, without additional rules, it permits implementers to make many
+			choices, and does not provide guarantees of common behavior between
+			implementations.</p>
+		<p>
+			These rules have to be prescriptive, to ensure that compliant
+			implementations satisfy the semantic guarantees, that are implied by
+			them. We call this set of rules a <a>Profile</a>.
 		<p>The present document serves two purposes:</p>
 		<ul>
 			<li>It defines a common <a>Profiling Mechanism</a> which
@@ -103,7 +105,7 @@
 			The W3C WoT Architecture [[wot-architecture]] and the WoT Thing
 			Description [[wot-thing-description]] (<a
 				href="https://w3c.github.io/wot-thing-description">https://w3c.github.io/wot-thing-description</a>)
-			has been developed as a descriptive format, that allows describing
+			have been developed with a descriptive format, that allows describing
 			the interactions with multiple devices and protocols. The format is
 			very flexible and open and puts very few normative requirements on
 			devices that implement it.
@@ -141,8 +143,7 @@
 
 
 		<section id="why-profile">
-			<h2 id="why-define-a-core-td-profile-">Why define a Core TD
-				Profile?</h2>
+			<h2 id="why-define-a-core-td-profile-">Why a Core Profile?</h2>
 
 			<p>During the recent WoT plug-fests there were many de-facto
 				agreements on the use of a small subset of interaction patterns and
@@ -212,7 +213,6 @@
 			For convenience of the reader, we use the terms <em>keyword</em> or <em>field</em>
 			for <em>vocabulary term</em>.
 		</p>
-		<section class="ednote">add references to arch and TD specs.</section>
 		<p>
 			The key words &quot;MUST&quot;, &quot;MUST NOT&quot;,
 			&quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
@@ -247,7 +247,7 @@
 		<p>This section describes a mechanism to define a profile of the
 			TD specification in a unambiguous way.</p>
 		<p>
-			The <em>W3C WoT Thing Description specificatopn</em> defines a formal
+			The <em>W3C WoT Thing Description specification</em> defines a formal
 			language, i.e. a set of vocabulary terms (words) a set of classes,
 			that are built from these vocabulary terms, and a set of additional
 			rules, that define constraints on permitted values and keyword
@@ -332,7 +332,7 @@
 
 
 	<section id="core-profile">
-		<h2 id="the-wot-core-profile">The WoT Core Profile</h2>
+		<h2 id="the-wot-core-profile">WoT Core Profile</h2>
 
 		<section id="general">
 			<h3 id="general">General</h3>
@@ -359,9 +359,7 @@
 				on resource constrained devices.</p>
 		</section>
 
-
-		TODO: no optional parameters
-
+		<section class="ednote">TODO: no optional parameters</section>
 
 
 		<table class="def">
@@ -691,9 +689,9 @@
 						<tr>
 							<td>enum</td>
 							<td>array of simple type</td>
-							<td><em>Values of enums MAY only be simple types.
-									Handling of <em>any type<em> is too complex to
-											implement on resource constrained devices</td>
+							<td><em>Values</em> of enums MAY only be simple types.
+								Handling of <em>any type</em> is too complex to implement on
+								resource constrained devices</td>
 						</tr>
 						<tr>
 							<td>forms</td>
@@ -836,7 +834,8 @@
 							<td>forms</td>
 							<td>array of Forms</td>
 							<td>The <code>Array of Form</code> of each action MUST
-								contain only a <em>single endpoint. </td>
+								contain only a <em>single</em> endpoint.
+							</td>
 						</tr>
 						<tr>
 							<td>format</td>
@@ -930,7 +929,8 @@
 							<td>forms</td>
 							<td>array of Forms</td>
 							<td>The <code>Array of Form</code> of each event MUST
-								contain only a <em>single endpoint. </td>
+								contain only a <em>single</em> endpoint.
+							</td>
 						</tr>
 						<tr>
 							<td>uriVariables</td>
@@ -1006,7 +1006,7 @@
 						<tr>
 							<td>security</td>
 							<td>string or Array of string</td>
-							<td><code>security<</code> at form level MUST NOT be used.</td>
+							<td><code>security</code> at form level MUST NOT be used.</td>
 						</tr>
 						<tr>
 							<td>scopes</td>
@@ -1023,7 +1023,7 @@
 		<section>
 			<h3 id="links">Links</h3>
 			<section class="ednote">TODO: Consider selecting a defined
-				set from RFC6903 chapter 6.</section>
+				set from [[RFC6903]] chapter 6.</section>
 
 			<p>
 				The "type" relationship as defined in chapter 6 of [[RFC6903]] is
@@ -1065,94 +1065,93 @@
 				<p>When using the "no security" or "Basic Auth" security schemes
 					it is strongly recommended to use transport layer encryption.</p>
 			</section>
+		</section>
+		<!-- Protocol Binding -->
 
-			<!-- Protocol Binding -->
-
-			<section>
-				<h3 id="protocol-binding">HTTP Protocol Binding</h3>
-				<p>All communication is using JSON payloads over HTTP/REST. The
-					content type header MUST be set to &quot;application/json&quot;.</p>
-
-				<section>
-					<h3 id="properties">Properties</h3>
-					<p>The HTTP verbs GET and PUT are mapped on reading and writing
-						a property - all other protocol verbs return an error &quot;405
-						Method Not Allowed&quot;.</p>
-					<blockquote>
-						<p>Note: Since HTTP does not provide a pub/sub mechanism, the
-							observe interaction is not supported directly. The event
-							mechanism can be used instead to send notifications on property
-							changes.</p>
-					</blockquote>
-					<p>Multiple properties can be set/get by accessing the
-						Properties endpoint.</p>
-				</section>
-				<section>
-					<h3 id="actions">Actions</h3>
-					<p>Actions can be synchronous and asynchronous. The current TD
-						specification does not distinguish these two cases and does not
-						describe a detailed mechanism.</p>
-					<p>The HTTP verb POST is mapped to invoking an action on the
-						actions endpoint - all other protocol verbs return an error
-						&quot;405 Method Not Allowed&quot;.</p>
-				</section>
-				<section>
-					<h3 id="events">Events</h3>
-					<p>The supported protocols for events are WebHooks, WebSockets,
-						SSE and Long polling.</p>
-				</section>
-			</section>
-
-			<!-- External Representation -->
-
-			<section id="external-representation">
-				<h2 id="external-td-representations">External TD
-					representations</h2>
-				<p>The default representation is JSON. Semantic annotations
-					based on JSON-LD MAY be present but are not required to perform all
-					interactions with the thing instance.</p>
-			</section>
-
-			<!--  Normative References -->
+		<section>
+			<h3 id="protocol-binding">HTTP Protocol Binding</h3>
+			<p>All communication is using JSON payloads over HTTP/REST. The
+				content type header MUST be set to &quot;application/json&quot;.</p>
 
 			<section>
-				<h2 id="normative-references">Normative references</h2>
-				<p>
-					urn_type = a valid URN as defined in <a
-						href=https://tools.ietf.org/rfc/rfc2141.txt>RFC2141</a>
-				</p>
-				<p>
-					uri_type = a valid URI as defined by <a
-						href=https://tools.ietf.org/rfc/rfc3986.txt>RFC3986</a>
-				</p>
-				<p>
-					identifier = a valid ECMAScript identifier name as defined in
-					chapter 11.6 of <a
-						href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
-				</p>
-				<p>
-					number = a valid ECMAScript number as defined in chapter 20.1 of <a
-						href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
-				</p>
-				<p>
-					string = a valid ECMAScript string literal as defined in chapter
-					11.8.4 of <a
-						href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
-				</p>
-				<p>
-					date = a valid ECMAScript date as defined in chapter '20.3.1.16
-					Date Time String Format' of <a
-						href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
-				</p>
-				<p>(https://tools.ietf.org/html/rfc6068).</p>
-				<h4 id="open-issues">Open Issues</h4>
-				<ul>
-					<li>finalize async and sync actions when TD spec is clear</li>
-					<li>define event payload mapping once binding spec handles
-						webhooks, long poll and SSE</li>
-					<li>Examples</li>
-				</ul>
+				<h3 id="properties">Properties</h3>
+				<p>The HTTP verbs GET and PUT are mapped on reading and writing
+					a property - all other protocol verbs return an error &quot;405
+					Method Not Allowed&quot;.</p>
+				<blockquote>
+					<p>Note: Since HTTP does not provide a pub/sub mechanism, the
+						observe interaction is not supported directly. The event mechanism
+						can be used instead to send notifications on property changes.</p>
+				</blockquote>
+				<p>Multiple properties can be set/get by accessing the
+					Properties endpoint.</p>
+			</section>
+			<section>
+				<h3 id="actions">Actions</h3>
+				<p>Actions can be synchronous and asynchronous. The current TD
+					specification does not distinguish these two cases and does not
+					describe a detailed mechanism.</p>
+				<p>The HTTP verb POST is mapped to invoking an action on the
+					actions endpoint - all other protocol verbs return an error
+					&quot;405 Method Not Allowed&quot;.</p>
+			</section>
+			<section>
+				<h3 id="events">Events</h3>
+				<p>The supported protocols for events are WebHooks, WebSockets,
+					SSE and Long polling.</p>
 			</section>
 		</section>
+
+		<!-- External Representation -->
+
+		<section id="external-representation">
+			<h2 id="external-td-representations">External TD representations</h2>
+			<p>The default representation is JSON. Semantic annotations based
+				on JSON-LD MAY be present but are not required to perform all
+				interactions with the thing instance.</p>
+		</section>
+
+		<!--  Normative References -->
+
+		<section>
+			<h2 id="normative-references">Normative references</h2>
+			<p>
+				urn_type = a valid URN as defined in <a
+					href=https://tools.ietf.org/rfc/rfc2141.txt>RFC2141</a>
+			</p>
+			<p>
+				uri_type = a valid URI as defined by <a
+					href=https://tools.ietf.org/rfc/rfc3986.txt>RFC3986</a>
+			</p>
+			<p>
+				identifier = a valid ECMAScript identifier name as defined in
+				chapter 11.6 of <a
+					href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
+			</p>
+			<p>
+				number = a valid ECMAScript number as defined in chapter 20.1 of <a
+					href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
+			</p>
+			<p>
+				string = a valid ECMAScript string literal as defined in chapter
+				11.8.4 of <a
+					href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
+			</p>
+			<p>
+				date = a valid ECMAScript date as defined in chapter '20.3.1.16 Date
+				Time String Format' of <a
+					href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
+			</p>
+			<p>(https://tools.ietf.org/html/rfc6068).</p>
+		</section>
+	</section>
+	<section>
+		<h4 id="open-issues">Open Issues</h4>
+		<ul>
+			<li>define action semantics</li>
+			<li>define subscription mechanism</li>
+			<li>Examples</li>
+		</ul>
+	</section>
 </body>
 </html>
