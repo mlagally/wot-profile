@@ -72,19 +72,21 @@
 			format is very flexible and open and puts very few normative
 			requirements on devices that implement it.</p>
 
-		<p>However, this flexibility de-facto prevents interoperability,
-			since, without additional rules, it permits implementers to make many
-			choices, and does not provide guarantees of common behavior between
-			implementations.</p>
+		<p>
+			However, this flexibility de-facto prevents interoperability, since,
+			without additional <strong>rules</strong>, it allows implementers to
+			make many choices that do not provide <strong>guarantees</strong> of
+			common behavior between implementations.
+		</p>
 		<p>
 			These rules have to be prescriptive, to ensure that compliant
 			implementations satisfy the semantic guarantees, that are implied by
 			them. We call this set of rules a <a>Profile</a>.
 		<p>The present document serves two purposes:</p>
 		<ul>
-			<li>It defines a common <strong>Profiling Methodology</strong>
-				which provides a mechanism to describe a profile in an unambiguous
-				way. This mechanism can be used to define additional profiles.
+			<li>It defines a <strong>common Methodology</strong> which
+				provides a mechanism to describe a profile in an unambiguous way.
+				This mechanism can be used to define additional profiles.
 			</li>
 			<li>In addition it defines a <strong><a>Core
 						Profile</a></strong> of the Thing Description for use with the HTTP(S) and
@@ -174,7 +176,7 @@
 				During the recent WoT plug-fests there were many de-facto agreements
 				on the use of a small constrained subset of interaction patterns and
 				protocol choices. These de-facto agreements select a common subset
-				of the <a>WoT Thing Description</a> specification, based on proven
+				of the WoT <a>Thing Description specification</a>, based on proven
 				interoperability among manufacturers.
 			</p>
 			<p>
@@ -247,7 +249,7 @@
 			interchangeable manner.
 		</p>
 		<p>
-			The key words &quot;MUST&quot;, &quot;MUST NOT&quot;,
+			The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;,
 			&quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
 			&quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,
 			&quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be
@@ -267,12 +269,20 @@
 			<dd>A Data Model that conforms to the Thing Description
 				specification [[wot-thing-description]].</dd>
 			<dt>
-				<dfn>
-					<a>Core Profile</a>
-				</dfn>
+			<dt>
+				<dfn>Core Data Model</dfn>
 			</dt>
 			<dd>
-				Synonym for WoT <a>Core Profile</a>.
+				A Data Model that conforms to the subset of the Thing Description
+				specification [[wot-thing-description]] as defined in section <a
+					href="wot-core-datamodel"></a>.
+			</dd>
+			<dt>
+
+				<dfn> Core Profile </dfn>
+			</dt>
+			<dd>
+				Synonym for <a>WoT Core Profile</a>.
 			</dd>
 			<dt>
 				<dfn>Core TD</dfn>
@@ -287,9 +297,13 @@
 				A Thing Description that conforms to the <a>Core Profile</a>.
 			</dd>
 			<dt>
-				<dfn>
-					WoT <a>Core Profile</a>
-				</dfn>
+				<dfn>Profile</dfn>
+			</dt>
+			<dd>A set of prescriptive rules, to ensure that compliant
+				implementations satisfy the semantic guarantees, that are implied by
+				them.
+			<dt>
+				<dfn>WoT Core Profile</dfn>
 			</dt>
 			<dd>The subset of the Thing Description specification defined by
 				the present document.</dd>
@@ -334,13 +348,16 @@
 		</ul>
 
 		<section>
-			<h3 id="profile-description-methodology">Profiling Methodology</h3>
+			<h3 id="profile-description-methodology">Methodology</h3>
 
-			<p>A profile is a set of constraints and rules, which provide
+			<p>
+				A profile is a set of constraints and rules, which provide
 				additional semantic guarantees that are applied to the TD
-				specification. These constraints define a subset of valid TD
-				documents by defining additional rules on various aspects of the TD
-				spec:</p>
+				specification. These constraints define a subset of valid <a>Thing
+					Descriptions</a> by defining additional rules on various aspects of the
+				<a>Thing Description</a> specification.
+			</p>
+
 			<table class="def">
 				<tr>
 					<th>Constraints on</th>
@@ -361,8 +378,8 @@
 				<tr>
 					<td>values of vocabulary terms</td>
 					<td>simplified processing</td>
-					<td>Always use arrays, where the spec permits a string or an
-						array of strings. Only a subset of values from enums.</td>
+					<td>Limit the length of characters per string, Always use
+						arrays, where the spec permits a string or an array of strings.</td>
 				</tr>
 				<tr>
 					<td>data schemas</td>
@@ -382,14 +399,29 @@
 				</tr>
 			</table>
 
-			<p>Constraints are structured in categories following
-				[[RFC2119]], i.e. a profile defines rules that MUST be followed,
-				rules that are RECOMMENDED or OPTIONAL, and rules, that ensure that
-				certain features MUST NOT be present.</p>
+
+			<p>These constraints and rules fall into two categories:</p>
+			<ul>
+				<li>constraints for the data model.</li>
+				<li>constraints for the protocol binding.</li>
+			</ul>
+
+			<p>These two categories are orthogonal to each other, i.e. a data
+				model that conforms to a profile can be mapped to different
+				protocols. The protocol binding for each protocol may contain
+				additional (protocol-specific) constraints.</p>
 
 			<p>A profile is not exclusive, i.e. a thing may conform to
 				multiple profiles. Profiles can build on top of each other, extended
 				profiles, can be derived from the core profile.</p>
+
+			<p>
+				In the present document, we define a <a>Core Profile</a> by defining
+				a <a>Core Data Model</a> and a set of <a>Protocol Binding</a> Rules.
+				In the present version of this document we define a mapping to
+				HTTP(S). It is envisioned, that future versions of this document
+				contain additional mapping to Web Sockets and other protocols.
+			</p>
 		</section>
 	</section>
 
@@ -397,806 +429,878 @@
 	<!-- <a>Core Profile</a> -->
 
 
-	<section id="-profile">
-		<h2 id="the-wot--profile">
+	<section id="core-profile">
+		<h2>
 			<a>WoT Core Profile</a>
 		</h2>
 
-		<section id="general">
-			<h3 id="general">General</h3>
+		<section id="core-data_model">
+			<h2>>WoT Core Data Model</h2>
 
-			<p>
-				The following rules are applicable to multiple classes of the <a>TD
-					Specification</a>, as they provide clearer semantics, improved
-				readability and simplified processing on resource constrained
-				devices.
-			</p>
+			<section id="general">
+				<h3 id="general">General</h3>
 
-			<p>
-				One of the primary benefits of the <a>WoT Thing Description</a> over
-				a typical IoT format is the additional documentation for a human
-				reader.
-			</p>
-			<p>
-				Therefore the fields
-				<code>title</code>
-				and
-				<code>description</code>
-				are MANDATORY for Things, Property Affordances, Action Affordances,
-				Event Affordances and Data Schemas.
-			</p>
-			<p>It is possible to have empty values for these fields, if, for
-				specific purposes it is not desired to provide documentation,
-				however this is NOT RECOMMENDED and the conscious decision is
-				obvious from the TD.</p>
+				<p>
+					The following rules are applicable to multiple classes of the <a>TD
+						Specification</a>, as they provide clearer semantics, improved
+					readability and simplified processing on resource constrained
+					devices.
+				</p>
 
-			<p>
-				Where a type permits using an
-				<code>array of strings</code>
-				or a
-				<code>string</code>
-				, an
-				<code>array</code>
-				MUST be used.
-			</p>
+				<section>
+					<h4>Mandatory fields</h4>
+					<p>
+						One of the primary benefits of the WoT <a>Thing Description</a>
+						over a typical IoT format is the additional documentation for a
+						human reader.
+					</p>
+					<p>
+						Therefore the fields
+						<code>title</code>
+						and
+						<code>description</code>
+						are MANDATORY for Things, Property Affordances, Action
+						Affordances, Event Affordances and Data Schemas.
+					</p>
+					<p>It is possible to have empty values for these fields, if,
+						for specific purposes it is not desired to provide documentation,
+						however this is NOT RECOMMENDED and the conscious decision is
+						obvious from the TD.</p>
+				</section>
 
-			<table class="def">
+				<section>
+					<h4>Length and Value Limits</h4>
+					<p>
+						The length of
+						<code>id</code>
+						,
+						<code>description</code>
+						and
+						<code>descriptions</code>
+						values is limited to 512 characters.
+					</p>
+					<p>
+						The length of
+						<code>title</code>
+						and
+						<code>titles</code>
+						values is limited to 64 characters.
+					</p>
+					<p>
+				</section>
+
+				<p>
+					Where a type permits using an
+					<code>array of string</code>
+					or a
+					<code>string</code>
+					, an
+					<code>array of string</code>
+					MUST be used.
+				</p>
+
+				<p>
+					Where a type permits using an
+					<code>array of DataSchema</code>
+					or a
+					<code>DataSchema</code>
+					, an
+					<code>array of DataSchema</code>
+					MUST be used.
+				</p>
+				<p>
+					All elements of an
+					<code>enum</code>
+					MUST be either
+					<code>string</code>
+					or
+					<code>number</code>
+					. Different types in a single
+					<code>enum</code>
+					are NOT PERMITTED.
+				</p>
+				<!--  table class="def">
 				<thead>
 					<tr>
-						<th>key</th>
+						<th>keyword</th>
 						<th>type</th>
 						<th>remarks</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
+						<td>@context</td>
+						<td>array of string</td>
+						<td></td>
+					</tr>
+					<tr>
 						<td>@type</td>
 						<td>array of string</td>
 						<td></td>
 					</tr>
 				</tbody>
-			</table>
-		</section>
-
-		<!-- Thing -->
-
-		<section>
-			<h2 id="thing">Thing</h2>
-			The <a>Core Profile</a> applies the following constraints and rules
-			to the Thing class of section 5.3.1.1 of the <a>TD Specification</a>.
-			<section>
-				<h3>Mandatory fields</h3>
-				<p>
-					To provide minimum interoperability, the following metadata fields
-					of a <a>Thing</a> MUST be contained in an <a>Core TD</a>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>remarks</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>title</td>
-							<td>string</td>
-							<td>human readable documentation</td>
-						</tr>
-						<tr>
-							<td>id</td>
-							<td>urn_type</td>
-							<td>a globally unique urn of the thing</td>
-						</tr>
-						<tr>
-							<td>description</td>
-							<td>string</td>
-							<td>human readable documentation</td>
-						</tr>
-						<tr>
-							<td>created</td>
-							<td>date</td>
-							<td>human readable documentation</td>
-						</tr>
-						<tr>
-							<td>modified</td>
-							<td>date</td>
-							<td>human readable documentation</td>
-						</tr>
-						<tr>
-							<td>support</td>
-							<td>urn_type</td>
-							<td>human readable documentation</td>
-						</tr>
-						<tr>
-							<td>security</td>
-							<td>array of string</td>
-							<td>simplified handling</td>
-						</tr>
-						<tr>
-							<td>version</td>
-							<td>VersionInfo</td>
-							<td>clear versioning, easy to compare different TDs</td>
-						</tr>
-					</tbody>
-				</table>
+			</table -->
 			</section>
 
+			<!-- Thing -->
+
 			<section>
-				<h5 id="recommended-practice-">Recommended practice</h5>
-				<p>It is RECOMMENDED to use the value &quot;Undefined&quot; for
-					strings, where the value cannot be determined.</p>
-
-				<p>If a Thing Description is used solely within a company, the
-					email address of the developer SHOULD be used in the support field,
-					if the IF-TD is provided externally, a support email address SHOULD
-					be used.</p>
-
-
-				<p>It is RECOMMENDED to use the following field names for
-					additional fields with specific semantics:</p>
-
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>remarks</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>serialNumber</td>
-							<td>string</td>
-
-						</tr>
-						<tr>
-							<td>hardwareRevision</td>
-							<td>string</td>
-
-						</tr>
-						<tr>
-							<td>softwareRevision</td>
-							<td>string</td>
-
-						</tr>
-						<tr>
-							<td>loc_latitude</td>
-							<td>number</td>
-							<td>Text string representation of latitude as defined in
-								annex H of ISO-6709</td>
-						</tr>
-						<tr>
-							<td>loc_longitude</td>
-							<td>number</td>
-							<td>Text string representation of longitude as defined in
-								annex H of ISO-6709</td>
-						</tr>
-						<tr>
-							<td>loc_altitude</td>
-							<td>number</td>
-							<td>Text string representation of altitude as defined in
-								annex H of ISO-6709</td>
-						</tr>
-						<tr>
-							<td>loc_height</td>
-							<td>number</td>
-							<td>Text string representation of height as defined in annex
-								H of ISO-6709</td>
-						</tr>
-						<tr>
-							<td>loc_depth</td>
-							<td>number</td>
-							<td>Text string representation of depth as defined in annex
-								H of [[ISO-6709]]</td>
-						</tr>
-					</tbody>
-				</table>
-				<p>
-					If a location is provided, loc_latitude and loc_longitude MUST be
-					present. Only one of loc_altitude, loc_height and loc_depth MAY be
-					present. The use of loc_altitude is NOT RECOMMENDED, since it
-					refers to the <em>mean sea level</em>, which is not a globally
-					unique reference point.
-				</p>
-				<section class="note">
+				<h2 id="thing">Thing</h2>
+				The <a>Core Data Model</a> applies the following constraints and
+				rules to the Thing class of section 5.3.1.1 of the <a>TD
+					Specification</a>.
+				<section>
+					<h3>Mandatory fields</h3>
 					<p>
-						See <a
-							href="https://www.science20.com/news_articles/what_happens_bridge_when_one_side_uses_mediterranean_sea_level_and_another_north_sea-121600">https://www.science20.com/news_articles/what_happens_bridge_when_one_side_uses_mediterranean_sea_level_and_another_north_sea-121600</a>
-						for a justification why loc_altitude is problematic.
+						To provide minimum interoperability, the following metadata fields
+						of a <a>Thing</a> MUST be contained in an <a>Core TD</a>:
 					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>title</td>
+								<td>string</td>
+								<td>human readable documentation</td>
+							</tr>
+							<tr>
+								<td>id</td>
+								<td>urn_type</td>
+								<td>a globally unique urn of the thing</td>
+							</tr>
+							<tr>
+								<td>description</td>
+								<td>string</td>
+								<td>human readable documentation</td>
+							</tr>
+							<tr>
+								<td>created</td>
+								<td>date</td>
+								<td>human readable documentation</td>
+							</tr>
+							<tr>
+								<td>modified</td>
+								<td>date</td>
+								<td>human readable documentation</td>
+							</tr>
+							<tr>
+								<td>support</td>
+								<td>urn_type</td>
+								<td>human readable documentation</td>
+							</tr>
+							<tr>
+								<td>security</td>
+								<td>array of string</td>
+								<td>simplified handling</td>
+							</tr>
+							<tr>
+								<td>version</td>
+								<td>VersionInfo</td>
+								<td>clear versioning, easy to compare different TDs</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h5 id="recommended-practice-">Recommended practice</h5>
+					<p>It is RECOMMENDED to use the value &quot;Undefined&quot; for
+						strings, where the value cannot be determined.</p>
+
+					<p>If a Thing Description is used solely within a company, the
+						email address of the developer SHOULD be used in the support
+						field, if the IF-TD is provided externally, a support email
+						address SHOULD be used.</p>
+
+
+					<p>It is RECOMMENDED to use the following field names for
+						additional fields with specific semantics:</p>
+
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>remarks</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>serialNumber</td>
+								<td>string</td>
+
+							</tr>
+							<tr>
+								<td>hardwareRevision</td>
+								<td>string</td>
+
+							</tr>
+							<tr>
+								<td>softwareRevision</td>
+								<td>string</td>
+
+							</tr>
+							<tr>
+								<td>loc_latitude</td>
+								<td>number</td>
+								<td>Text string representation of latitude as defined in
+									annex H of [[ISO-6709]]</td>
+							</tr>
+							<tr>
+								<td>loc_longitude</td>
+								<td>number</td>
+								<td>Text string representation of longitude as defined in
+									annex H of [[ISO-6709]]</td>
+							</tr>
+							<tr>
+								<td>loc_altitude</td>
+								<td>number</td>
+								<td>Text string representation of altitude as defined in
+									annex H of [[ISO-6709]]</td>
+							</tr>
+							<tr>
+								<td>loc_height</td>
+								<td>number</td>
+								<td>Text string representation of height as defined in
+									annex H of [[ISO-6709]]</td>
+							</tr>
+							<tr>
+								<td>loc_depth</td>
+								<td>number</td>
+								<td>Text string representation of depth as defined in annex
+									H of [[ISO-6709]]</td>
+							</tr>
+						</tbody>
+					</table>
+					<p>
+						If a location is provided, loc_latitude and loc_longitude MUST be
+						present. Only one of loc_altitude, loc_height and loc_depth MAY be
+						present. The use of loc_altitude is NOT RECOMMENDED, since it
+						refers to the <em>mean sea level</em>, which is not a globally
+						unique reference point.
+					</p>
+					<section class="note">
+						<p>
+							See <a
+								href="https://www.science20.com/news_articles/what_happens_bridge_when_one_side_uses_mediterranean_sea_level_and_another_north_sea-121600">https://www.science20.com/news_articles/what_happens_bridge_when_one_side_uses_mediterranean_sea_level_and_another_north_sea-121600</a>
+							for a justification why loc_altitude is problematic.
+						</p>
+					</section>
 				</section>
 			</section>
-		</section>
 
 
-		<!-- Data Schemas-->
+			<!-- Data Schemas-->
 
 
-		<section>
-			<h3 id="data schemas">Data Schemas</h3>
-			<p>
-				Data Schemas are used for the values of Properties, Action input and
-				output parameters and Event message payloads. The value of a <em>Data
-					Schema</em> can be a simple type (boolean, integer, number, string) or
-				an instance of a structured type (array and object).
-			</p>
-			The <a>Core Profile</a> applies the following constraints and rules
-			to the
-			<code>DataSchema</code>
-			class of section 5.3.2.1 of the <a>TD Specification</a>.
-			<p>
-				This section defines a subset of the class
-				<code>DataSchema</code>
-				that can be processed on resource-constrained devices.
-			<h4 id="constraints-against-the-td-specification">Data Schema
-				Constraints</h4>
-			<p>
-				The <a>Core Profile</a> restricts the use of arrays and objects to
-				the <strong>top level</strong> of Data Schemas, i.e. only a
-				one-level hierarchy is permitted. The members of a top level
-				<code>object</code>
-				or
-				<code>array</code>
-				MUST NOT be array or object types.
-			</p>
-			<section class="note" title="RATIONALE">
-				<p>This may appear as a severe limitation, however it is
-					motivated by integrating with multiple cloud services. Many
-					enterprise services and applications are based on (relational)
-					databases, where individual property values are stored. Of course
-					databases can also store objects (e.g. encoded as a JSON string),
-					however this will prevent processing by other enterprise
-					applications.</p>
-				<p>
-					If a property conceptually has a deeper structure, such as grid of
-					lamps with RGB colors, the structure can be represented in the key
-					of the property, i.e. lamp1_color_r, lamp1_color_g and
-					lamp1_color_b. A similar mapping can be done for arrays and
-					hierarchical objects. This constraint leads to simpler <a>Thing
-						Descriptions</a> that can be handled by very limited devices.
-				</p>
-			</section>
-			<p>The following fields MUST be contained in a DataSchema:</p>
-			<table class="def">
-				<thead>
-					<tr>
-						<th>key</th>
-						<th>type</th>
-						<th>constraints</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>description</td>
-						<td>human readable description</td>
-					</tr>
-					<tr>
-						<td>type</td>
-						<td>string</td>
-						<td>one of boolean, integer, number, string, object or string</td>
-					</tr>
-				</tbody>
-			</table>
-			<p>
-				The values
-				<code> object </code>
-				,
-				<code> array </code>
-				, or
-				<code> null </code>
-				MUST NOT be used in the type field.
-			</p>
-		</section>
-
-
-		<!-- Properties -->
-
-		<section>
-			<h3 id="properties">Property Affordance</h3>
-			The <a>Core Profile</a> applies the following constraints and rules
-			to the
-			<code>PropertyAffordance</code>
-			class of section 5.3.1.3 of the <a>TD Specification</a>.
 			<section>
-				<h4>Mandatory fields</h4>
+				<h3 id="data schemas">Data Schemas</h3>
 				<p>
-					The following property fields MUST be contained in the
-					<code>properties</code>
-					element of a <em>Core TD</em>:
+					Data Schemas are used for the values of Properties, Action input
+					and output parameters and Event message payloads. The value of a <em>Data
+						Schema</em> can be a simple type (boolean, integer, number, string) or
+					an instance of a structured type (array and object).
 				</p>
+				The <a>Core Data Model</a> applies the following constraints and
+				rules to the
+				<code>DataSchema</code>
+				class of section 5.3.2.1 of the <a>TD Specification</a>.
+				<p>
+					This section defines a subset of the class
+					<code>DataSchema</code>
+					that can be processed on resource-constrained devices.
+				<h4 id="constraints-against-the-td-specification">Data Schema
+					Constraints</h4>
+				<p>
+					The <a>Core Data Model</a> restricts the use of arrays and objects
+					to the <strong>top level</strong> of Data Schemas, i.e. only a
+					one-level hierarchy is permitted. The members of a top level
+					<code>object</code>
+					or
+					<code>array</code>
+					MUST NOT be array or object types.
+				</p>
+				<section class="note" title="RATIONALE">
+					<p>This may appear as a severe limitation, however it is
+						motivated by integrating with multiple cloud services. Many
+						enterprise services and applications are based on (relational)
+						databases, where individual property values are stored. Of course
+						databases can also store objects (e.g. encoded as a JSON string),
+						however this will prevent processing by other enterprise
+						applications.</p>
+					<p>
+						If a property conceptually has a deeper structure, such as grid of
+						lamps with RGB colors, the structure can be represented in the
+						keyword of the property, i.e. lamp1_color_r, lamp1_color_g and
+						lamp1_color_b. A similar mapping can be done for arrays and
+						hierarchical objects. This constraint leads to simpler <a>Thing
+							Descriptions</a> that can be handled by very limited devices.
+					</p>
+				</section>
+				<p>The following fields MUST be contained in a DataSchema:</p>
 				<table class="def">
 					<thead>
 						<tr>
-							<th>key</th>
+							<th>keyword</th>
 							<th>type</th>
 							<th>constraints</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>title</td>
-							<td>string</td>
-							<td>unique name among all properties</td>
-						</tr>
-						<tr>
 							<td>description</td>
-							<td>string</td>
 							<td>human readable description</td>
 						</tr>
 						<tr>
 							<td>type</td>
 							<td>string</td>
-							<td>one of <code> boolean </code> , <code> string </code> ,
-								<code> number </code> , <code> integer </code> , <code>
-									object </code> or <code> array </code> . The type value <code>
-									null </code> MUST NOT be used.
-							</td>
+							<td>one of boolean, integer, number, string, object or
+								string</td>
 						</tr>
 					</tbody>
 				</table>
-			</section>
-
-			<section>
-				<h4>Additional Constraints</h4>
 				<p>
-					The <em>Thing Description</em> permits arbitrary object depths for
-					properties. Parsing of a deeply nested structure is not possible on
-					resource constrained devices. Therefore each property MAY contain
-					<code>array</code>
-					or
-					<code>object</code>
-					elements only at <em>top level</em>.
-				</p>
-
-				<p>
-					The following additional constraints MUST be applied to the
-					Property Affordances of a <a>Thing Description</a> conforming to
-					the <a>Core Profile</a>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraint</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>const</td>
-							<td>anyType</td>
-							<td>MUST NOT be used</td>
-						</tr>
-						<tr>
-							<td>enum</td>
-							<td>array of simple type</td>
-							<td><em>Values</em> of enums MAY only be simple types.
-								Handling of <em>any type</em> is too complex to implement on
-								resource constrained devices</td>
-						</tr>
-						<tr>
-							<td>forms</td>
-							<td>array of Forms</td>
-							<td>The <code>Array of Form</code> of each property MUST
-								contain only a <em>single endpoint</em> for each operation <code>readproperty</code>
-								, <code>writeproperty</code> , <code>observeproperty</code> , <code>unobserveproperty</code>.
-							</td>
-						</tr>
-						<tr>
-							<td>format</td>
-							<td>string</td>
-							<td>If the field <code>format</code> is used, only formats
-								defined in section 7.3.1-7.3.6 of [[JSON-SCHEMA]] MAY be used.
-							</td>
-						</tr>
-						<tr>
-							<td>oneOf</td>
-							<td>string</td>
-							<td>The DataSchema field <code>oneOf</code> does not make
-								sense for properties and MUST NOT be used.
-							</td>
-						</tr>
-						<tr>
-							<td>uriVariables</td>
-							<td>Map of DataSchema</td>
-							<td><code>uriVariables</code> MUST NOT be used.</td>
-						</tr>
-
-					</tbody>
-				</table>
-			</section>
-
-			<section>
-				<h4>Recommended Practice</h4>
-				<p>
-					It is highly RECOMMENDED to always specify a
-					<code>unit</code>
-					, if a value has a metric. Authors of <em>Thing Descriptions</em>
-					should be aware, that units that are common in their geographic
-					region are not globally applicable and may lead to
-					misinterpretation with drastic consequences.
-				</p>
-				<p>
-					The field
-					<code>unit</code>
-					could be used for non-decimal numeric types as well, e.g. a string
-					value with binary or hex data (
-					<code>0xCAFEBABE</code>
+					The values
+					<code> object </code>
 					,
-					<code>0b01000010</code>
-					), where the unit is
-					<code>hex</code>
-					or
-					<code>bin</code>
-					, to indicate how the value should be interpreted. It is strongly
-					RECOMMENDED to use the values
-					<code>hex</code>
-					,
-					<code>oct</code>
-					or
-					<code>bin</code>
-					in this case to achieve interoperability.
+					<code> array </code>
+					, or
+					<code> null </code>
+					MUST NOT be used in the type field.
 				</p>
+			</section>
+
+
+			<!-- Properties -->
+
+			<section>
+				<h3 id="properties">Property Affordance</h3>
+				The <a>Core Data Model</a> applies the following constraints and
+				rules to the
+				<code>PropertyAffordance</code>
+				class of section 5.3.1.3 of the <a>TD Specification</a>.
+				<section>
+					<h4>Mandatory fields</h4>
+					<p>
+						The following property fields MUST be contained in the
+						<code>properties</code>
+						element of a <em>Core TD</em>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraints</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>title</td>
+								<td>string</td>
+								<td>unique name among all properties</td>
+							</tr>
+							<tr>
+								<td>description</td>
+								<td>string</td>
+								<td>human readable description</td>
+							</tr>
+							<tr>
+								<td>type</td>
+								<td>string</td>
+								<td>one of <code> boolean </code> , <code> string </code> ,
+									<code> number </code> , <code> integer </code> , <code>
+										object </code> or <code> array </code> . The type value <code>
+										null </code> MUST NOT be used.
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h4>Additional Constraints</h4>
+					<p>
+						The <em>Thing Description</em> permits arbitrary object depths for
+						properties. Parsing of a deeply nested structure is not possible
+						on resource constrained devices. Therefore each property MAY
+						contain
+						<code>array</code>
+						or
+						<code>object</code>
+						elements only at <em>top level</em>.
+					</p>
+
+					<p>
+						The following additional constraints MUST be applied to the
+						Property Affordances of a <a>Thing Description</a> conforming to
+						the <a>Core Profile</a>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraint</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>const</td>
+								<td>anyType</td>
+								<td>MUST NOT be used</td>
+							</tr>
+							<tr>
+								<td>enum</td>
+								<td>array of simple type</td>
+								<td><em>Values</em> of enums MAY only be simple types.
+									Handling of <em>any type</em> is too complex to implement on
+									resource constrained devices</td>
+							</tr>
+							<tr>
+								<td>forms</td>
+								<td>array of Forms</td>
+								<td>The <code>Array of Form</code> of each property MUST
+									contain only a <em>single endpoint</em> for each operation <code>readproperty</code>
+									, <code>writeproperty</code> , <code>observeproperty</code> , <code>unobserveproperty</code>.
+								</td>
+							</tr>
+							<tr>
+								<td>format</td>
+								<td>string</td>
+								<td>If the field <code>format</code> is used, only formats
+									defined in section 7.3.1-7.3.6 of [[JSON-SCHEMA]] MAY be used.
+								</td>
+							</tr>
+							<tr>
+								<td>oneOf</td>
+								<td>string</td>
+								<td>The DataSchema field <code>oneOf</code> does not make
+									sense for properties and MUST NOT be used.
+								</td>
+							</tr>
+							<tr>
+								<td>uriVariables</td>
+								<td>Map of DataSchema</td>
+								<td><code>uriVariables</code> MUST NOT be used.</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h4>Recommended Practice</h4>
+					<p>
+						It is highly RECOMMENDED to always specify a
+						<code>unit</code>
+						, if a value has a metric. Authors of <em>Thing Descriptions</em>
+						should be aware, that units that are common in their geographic
+						region are not globally applicable and may lead to
+						misinterpretation with drastic consequences.
+					</p>
+					<p>
+						The field
+						<code>unit</code>
+						could be used for non-decimal numeric types as well, e.g. a string
+						value with binary or hex data (
+						<code>0xCAFEBABE</code>
+						,
+						<code>0b01000010</code>
+						), where the unit is
+						<code>hex</code>
+						or
+						<code>bin</code>
+						, to indicate how the value should be interpreted. It is strongly
+						RECOMMENDED to use the values
+						<code>hex</code>
+						,
+						<code>oct</code>
+						or
+						<code>bin</code>
+						in this case to achieve interoperability.
+					</p>
+				</section>
+			</section>
+
+
+			<!-- Actions -->
+
+			<section>
+				<h3 id="actions">Interaction Affordance</h3>
+				The <a>Core Data Model</a> applies the following constraints and
+				rules to the
+				<code>ActionAffordance</code>
+				class of section 5.3.1.4 of the <a>TD Specification</a>.
+
+				<section>
+					<h4>Mandatory fields</h4>
+
+					<p>
+						The following fields MUST be contained in an action element of an
+						<a>Core TD</a>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraints</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>title</td>
+								<td>string</td>
+								<td>unique name among all actions</td>
+							</tr>
+							<tr>
+								<td>input</td>
+								<td>array of DataSchema</td>
+								<td>all elements of the subclasses objectSchema and
+									dataSchema MUST only contain simple types.</td>
+							</tr>
+							<tr>
+								<td>output</td>
+								<td>array of DataSchema</td>
+								<td>all elements of the subclasses objectSchema and
+									dataSchema MUST only contain simple types.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section>
+					<h4>Additional Constraints</h4>
+					<p>
+						The elements of the DataSchema subclasses ArraySchema and
+						ObjectSchema for the fields
+						<code>input</code>
+						and
+						<code>output</code>
+						are restricted to simple types in a <a>Thing Description</a>
+						conforming to the <a>Core Data Model</a>. Without this limitation
+						a higher implementation burden would be put on resource
+						constrained devices (arbitrary cascaded arrays and multi-level
+						objects) which cannot be satisfied by all consuming devices.
+					</p>
+
+					<p>
+						The following additional constraints MUST be applied to the
+						Interaction Affordances of a <a>Thing Description</a> conforming
+						to the <a>Core Data Model</a>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraint</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>forms</td>
+								<td>array of Forms</td>
+								<td>The <code>Array of Form</code> of each action MUST
+									contain only a <em>single</em> endpoint.
+								</td>
+							</tr>
+							<tr>
+								<td>format</td>
+								<td>string</td>
+								<td>If the field <code>format</code> is used, only formats
+									defined in section 7.3.1-7.3.6 of [[JSON-SCHEMA]] MAY be used.
+								</td>
+							</tr>
+							<tr>
+								<td>oneOf</td>
+								<td>string</td>
+								<td>The DataSchema field <code>oneOf</code> does not make
+									sense for properties and MUST NOT be used.
+								</td>
+							</tr>
+							<tr>
+								<td>uriVariables</td>
+								<td>Map of DataSchema</td>
+								<td><code>uriVariables</code> MUST NOT be used.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section class="ednote">
+					<p>TODO:</p>
+					<p>- no optional parameters</p>
+					<p>- timeout</p>
+				</section>
+
+
+				<section>
+					<h4>Recommended Practice</h4>
+				</section>
+			</section>
+
+
+			<!-- Events -->
+
+
+			<section>
+				<h3 id="events">Event Affordances</h3>
+				The <a>Core Data Model</a> applies the following constraints and
+				rules to the
+				<code>EventAffordance</code>
+				class of section 5.3.1.5 of the <a>TD Specification</a>.
+
+				<p>
+					A <a>Thing</a> may provide more than one event mechanism to enable
+					a variety of consumers.
+				</p>
+				<section>
+					<h4>Mandatory fields</h4>
+					<p>
+						The following fields MUST be present in an event element of a <em>Core
+							TD</em>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraints</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>title</td>
+								<td>string</td>
+								<td>unique name among all events</td>
+							</tr>
+							<tr>
+								<td>description</td>
+								<td>string</td>
+								<td>human readable description</td>
+							</tr>
+							<tr>
+								<td>data</td>
+								<td>set of DataSchema instances in a JSON object</td>
+								<td>only the DataSchema subclasses booleanSchema,
+									IntegerSchema, NumberSchema, StringSchema are permitted</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h4>Additional Constraints</h4>
+					<p>
+						The following additional constraints MUST be applied to the Event
+						Affordances of a <a>Thing Description</a> conforming to the
+						profile:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraint</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>forms</td>
+								<td>array of Forms</td>
+								<td>The <code>Array of Form</code> of each event MUST
+									contain only a <em>single</em> endpoint.
+								</td>
+							</tr>
+							<tr>
+								<td>uriVariables</td>
+								<td>Map of DataSchema</td>
+								<td><code>uriVariables</code> MUST NOT be used.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</section>
+
+			<!-- Forms -->
+
+
+			<section>
+				<h3 id="forms">Forms</h3>
+				<p>
+					A <a>Thing</a> may provide more than one event mechanism to enable
+					a variety of consumers.
+				</p>
+				<section>
+					<h4>Mandatory fields</h4>
+					<p>
+						The following fields MUST be present in a form element of a <em>Core
+							TD</em>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraints</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>title</td>
+								<td>string</td>
+								<td>unique name among all events</td>
+							</tr>
+							<tr>
+								<td>description</td>
+								<td>string</td>
+								<td>human readable description</td>
+							</tr>
+							<tr>
+								<td>data</td>
+								<td>set of DataSchema instances in a JSON object</td>
+								<td>only the DataSchema subclasses booleanSchema,
+									IntegerSchema, NumberSchema, StringSchema are permitted</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h4>Additional Constraints</h4>
+					<p>
+						The following additional constraints MUST be applied to the Form
+						elements of a <a>Thing Description</a> conforming to the <a>Core
+							profile</a>:
+					</p>
+					<table class="def">
+						<thead>
+							<tr>
+								<th>keyword</th>
+								<th>type</th>
+								<th>constraint</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>security</td>
+								<td>string or Array of string</td>
+								<td><code>security</code> at form level MUST NOT be used.</td>
+							</tr>
+							<tr>
+								<td>scopes</td>
+								<td>string or Array of string</td>
+								<td><code>scopes</code> MUST NOT be used.</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+			</section>
+
+			<!-- Links -->
+
+			<section>
+				<h3 id="links">Links</h3>
+				<section class="ednote">TODO: Consider selecting a defined
+					set from [[RFC6903]] chapter 6.</section>
+
+				<p>
+					The "type" relationship as defined in chapter 6 of [[RFC6903]] is
+					reserved for indicating an instance relationship between a thing
+					and a thing template. The <a>Core Data Model</a> does not put
+					additional constraints or requirements on links. The interpretation
+					of a link is out of scope.
+				</p>
+			</section>
+
+			<!--  Security -->
+
+			<section>
+				<h3 id="security">Security</h3>
+				<p>
+					The <a>Core Data Model</a> defines a subset of the security schemes
+					that MAY be implemented on resource constrained devices. A security
+					scheme MUST be defined at the thing level. The security scheme is
+					applied to the thing as a whole, a thing may adopt multiple
+					security schemes.
+				</p>
+				<p>
+					The set of security schemes supported in the <a>Core Data Model</a>
+					is based on the plug-fest results. To ensure interoperability, a TD
+					consumer, which compliant with the <a>Core Data Model</a> MUST
+					support <strong>all</strong> of the following security schemes:
+				</p>
+
+				<ul>
+					<li>no security</li>
+					<li>Basic Auth</li>
+					<li>Digest</li>
+					<li>Bearer Token</li>
+					<li>Oauth2</li>
+				</ul>
+
+				<section>
+					<h4>Recommended Practice</h4>
+					<p>When using the "no security" or "Basic Auth" security
+						schemes it is strongly recommended to use transport layer
+						encryption.</p>
+				</section>
 			</section>
 		</section>
-
-
-		<!-- Actions -->
-
-		<section>
-			<h3 id="actions">Interaction Affordance</h3>
-			The <a>Core Profile</a> applies the following constraints and rules
-			to the
-			<code>ActionAffordance</code>
-			class of section 5.3.1.4 of the <a>TD Specification</a>.
-
-			<section>
-				<h4>Mandatory fields</h4>
-
-				<p>
-					The following fields MUST be contained in an action element of an <a>Core
-						TD</a>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraints</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>title</td>
-							<td>string</td>
-							<td>unique name among all actions</td>
-						</tr>
-						<tr>
-							<td>input</td>
-							<td>array of DataSchema</td>
-							<td>all elements of the subclasses objectSchema and
-								dataSchema MUST only contain simple types.</td>
-						</tr>
-						<tr>
-							<td>output</td>
-							<td>array of DataSchema</td>
-							<td>all elements of the subclasses objectSchema and
-								dataSchema MUST only contain simple types.</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-
-			<section>
-				<h4>Additional Constraints</h4>
-				<p>
-					The elements of the DataSchema subclasses ArraySchema and
-					ObjectSchema for the fields
-					<code>input</code>
-					and
-					<code>output</code>
-					are restricted to simple types in a <a>Thing Description</a>
-					conforming to the <a>Core Profile</a>. Without this limitation a
-					higher implementation burden would be put on resource constrained
-					devices (arbitrary cascaded arrays and multi-level objects) which
-					cannot be satisfied by all consuming devices.
-				</p>
-
-				<p>
-					The following additional constraints MUST be applied to the
-					Interaction Affordances of a <a>Thing Description</a> conforming to
-					the <a>Core Profile</a>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraint</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>forms</td>
-							<td>array of Forms</td>
-							<td>The <code>Array of Form</code> of each action MUST
-								contain only a <em>single</em> endpoint.
-							</td>
-						</tr>
-						<tr>
-							<td>format</td>
-							<td>string</td>
-							<td>If the field <code>format</code> is used, only formats
-								defined in section 7.3.1-7.3.6 of [[JSON-SCHEMA]] MAY be used.
-							</td>
-						</tr>
-						<tr>
-							<td>oneOf</td>
-							<td>string</td>
-							<td>The DataSchema field <code>oneOf</code> does not make
-								sense for properties and MUST NOT be used.
-							</td>
-						</tr>
-						<tr>
-							<td>uriVariables</td>
-							<td>Map of DataSchema</td>
-							<td><code>uriVariables</code> MUST NOT be used.</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-
-			<section class="ednote">
-				<p>TODO:</p>
-				<p>- no optional parameters</p>
-				<p>- timeout</p>
-			</section>
-
-
-			<section>
-				<h4>Recommended Practice</h4>
-			</section>
-		</section>
-
-
-		<!-- Events -->
-
-
-		<section>
-			<h3 id="events">Event Affordances</h3>
-			The <a>Core Profile</a> applies the following constraints and rules
-			to the
-			<code>EventAffordance</code>
-			class of section 5.3.1.5 of the <a>TD Specification</a>.
-
-			<p>
-				A <a>Thing</a> may provide more than one event mechanism to enable a
-				variety of consumers.
-			</p>
-			<section>
-				<h4>Mandatory fields</h4>
-				<p>
-					The following fields MUST be present in an event element of a <em>Core
-						TD</em>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraints</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>title</td>
-							<td>string</td>
-							<td>unique name among all events</td>
-						</tr>
-						<tr>
-							<td>description</td>
-							<td>string</td>
-							<td>human readable description</td>
-						</tr>
-						<tr>
-							<td>data</td>
-							<td>set of DataSchema instances in a JSON object</td>
-							<td>only the DataSchema subclasses booleanSchema,
-								IntegerSchema, NumberSchema, StringSchema are permitted</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-			<section>
-				<h4>Additional Constraints</h4>
-				<p>
-					The following additional constraints MUST be applied to the Event
-					Affordances of a <a>Thing Description</a> conforming to the
-					profile:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraint</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>forms</td>
-							<td>array of Forms</td>
-							<td>The <code>Array of Form</code> of each event MUST
-								contain only a <em>single</em> endpoint.
-							</td>
-						</tr>
-						<tr>
-							<td>uriVariables</td>
-							<td>Map of DataSchema</td>
-							<td><code>uriVariables</code> MUST NOT be used.</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-		</section>
-
-		<!-- Forms -->
-
-
-		<section>
-			<h3 id="forms">Forms</h3>
-			<p>
-				A <a>Thing</a> may provide more than one event mechanism to enable a
-				variety of consumers.
-			</p>
-			<section>
-				<h4>Mandatory fields</h4>
-				<p>
-					The following fields MUST be present in a form element of a <em>Core
-						TD</em>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraints</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>title</td>
-							<td>string</td>
-							<td>unique name among all events</td>
-						</tr>
-						<tr>
-							<td>description</td>
-							<td>string</td>
-							<td>human readable description</td>
-						</tr>
-						<tr>
-							<td>data</td>
-							<td>set of DataSchema instances in a JSON object</td>
-							<td>only the DataSchema subclasses booleanSchema,
-								IntegerSchema, NumberSchema, StringSchema are permitted</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-			<section>
-				<h4>Additional Constraints</h4>
-				<p>
-					The following additional constraints MUST be applied to the Form
-					elements of a <a>Thing Description</a> conforming to the <a>Core
-						profile</a>:
-				</p>
-				<table class="def">
-					<thead>
-						<tr>
-							<th>key</th>
-							<th>type</th>
-							<th>constraint</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>security</td>
-							<td>string or Array of string</td>
-							<td><code>security</code> at form level MUST NOT be used.</td>
-						</tr>
-						<tr>
-							<td>scopes</td>
-							<td>string or Array of string</td>
-							<td><code>scopes</code> MUST NOT be used.</td>
-						</tr>
-					</tbody>
-				</table>
-			</section>
-		</section>
-
-		<!-- Links -->
-
-		<section>
-			<h3 id="links">Links</h3>
-			<section class="ednote">TODO: Consider selecting a defined
-				set from [[RFC6903]] chapter 6.</section>
-
-			<p>
-				The "type" relationship as defined in chapter 6 of [[RFC6903]] is
-				reserved for indicating an instance relationship between a thing and
-				a thing template. The <a>Core Profile</a> does not put additional
-				constraints or requirements on links. The interpretation of a link
-				is out of scope.
-			</p>
-		</section>
-
-		<!--  Security -->
-
-		<section>
-			<h3 id="security">Security</h3>
-			<p>
-				The <a>Core Profile</a> defines a subset of the security schemes
-				that MAY be implemented on resource constrained devices. A security
-				scheme MUST be defined at the thing level. The security scheme is
-				applied to the thing as a whole, a thing may adopt multiple security
-				schemes.
-			</p>
-			<p>
-				The set of security schemes supported in the <a>Core Profile</a> is
-				based on the plug-fest results. To ensure interoperability, a TD
-				consumer, which compliant with the <a>Core Profile</a> MUST support
-				<strong>all</strong> of the following security schemes:
-			</p>
-
-			<ul>
-				<li>no security</li>
-				<li>Basic Auth</li>
-				<li>Digest</li>
-				<li>Bearer Token</li>
-				<li>Oauth2</li>
-			</ul>
-
-			<section>
-				<h4>Recommended Practice</h4>
-				<p>When using the "no security" or "Basic Auth" security schemes
-					it is strongly recommended to use transport layer encryption.</p>
-			</section>
-		</section>
+		
+		
 		<!-- Protocol Binding -->
 
 		<section>
-			<h3 id="protocol-binding">HTTP Protocol Binding</h3>
-			<p>All communication is using JSON payloads over HTTP/REST. The
-				content type header MUST be set to &quot;application/json&quot;.</p>
+			<h3 id="protocol-binding">Protocol Binding</h3>
+
+			<section class="ednote">This section is work in progress
+				and not ready for review.</section>
+
+			This section describes how the <a>Core Data Model</a> can be bound to
+			different protocols. In addition to a set of mapping rules, it
+			defines additional behavior, e.g. timeouts, error behavior, action
+			semantics, ...
 
 			<section>
-				<h3 id="properties">Properties</h3>
-				<p>The HTTP verbs GET and PUT are mapped on reading and writing
-					a property - all other protocol verbs return an error &quot;405
-					Method Not Allowed&quot;.</p>
-				<blockquote>
-					<p>Note: Since HTTP does not provide a pub/sub mechanism, the
-						observe interaction is not supported directly. The event mechanism
-						can be used instead to send notifications on property changes.</p>
-				</blockquote>
-				<p>Multiple properties can be set/get by accessing the
-					Properties endpoint.</p>
-			</section>
-			<section>
-				<h3 id="actions">Actions</h3>
-				<p>Actions can be synchronous and asynchronous. The current TD
-					specification does not distinguish these two cases and does not
-					describe a detailed mechanism.</p>
-				<p>The HTTP verb POST is mapped to invoking an action on the
-					actions endpoint - all other protocol verbs return an error
-					&quot;405 Method Not Allowed&quot;.</p>
-			</section>
-			<section>
-				<h3 id="events">Events</h3>
-				<p>The supported protocols for events are WebHooks, WebSockets,
-					SSE and Long polling.</p>
+				<h3 id="protocol-binding">HTTP Protocol Binding</h3>
+				<p>All communication is using JSON payloads over HTTP(s). The
+					content type header MUST be set to &quot;application/json&quot;.</p>
+
+				<section>
+					<h3 id="properties">Properties</h3>
+					<p>The HTTP verbs GET and PUT are mapped on reading and writing
+						a property - all other protocol verbs return an error &quot;405
+						Method Not Allowed&quot;.</p>
+					<blockquote>
+						<p>Note: Since HTTP does not provide a pub/sub mechanism, the
+							observe interaction is not supported directly. The event
+							mechanism can be used instead to send notifications on property
+							changes.</p>
+					</blockquote>
+					<p>Multiple properties can be set/get by accessing the
+						Properties endpoint.</p>
+				</section>
+				<section>
+					<h3 id="actions">Actions</h3>
+					<p>Actions can be synchronous and asynchronous. The current TD
+						specification does not distinguish these two cases and does not
+						describe a detailed mechanism.</p>
+					<p>The HTTP verb POST is mapped to invoking an action on the
+						actions endpoint - all other protocol verbs return an error
+						&quot;405 Method Not Allowed&quot;.</p>
+				</section>
+				<section>
+					<h3 id="events">Events</h3>
+					<p>The supported protocols for events are WebHooks, WebSockets,
+						SSE and Long polling.</p>
+				</section>
 			</section>
 		</section>
 
@@ -1209,7 +1313,7 @@
 				interactions with the thing instance.</p>
 		</section>
 
-		<!--  Normative References -->
+		<!--  Normative References 
 
 		<section>
 			<h2 id="normative-references">Normative references</h2>
@@ -1241,7 +1345,7 @@
 					href=http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf>ECMAScript</a>
 			</p>
 			<p>(https://tools.ietf.org/html/rfc6068).</p>
-		</section>
+		</section -->
 	</section>
 	<section>
 		<h4 id="open-issues">Open Issues</h4>
