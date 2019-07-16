@@ -95,7 +95,7 @@
 			them. We call this set of rules a <a>Profile</a>.
 		<p>The present document serves two purposes:</p>
 		<ul>
-			<li>It defines a <strong>common Methodology</strong> which
+			<li>It defines a generic <strong>Profiling Mechanism</strong> which
 				provides a mechanism to describe a profile in an unambiguous way.
 				This mechanism can be used to define additional profiles.
 			</li>
@@ -137,7 +137,7 @@
 		<p>To increase adoption of the WoT specifications,
 			interoperability between on premise devices, edge devices and the
 			cloud is essential. Even if every manufacturer is implementing the
-			current Thing Description specifications in full flexibility, there
+			current Thing Description specification in full flexibility, there
 			is no interoperability guarantee; many choices are still left to the
 			implementations and there are very few normative requirements that a
 			device has to fulfill.</p>
@@ -200,6 +200,11 @@
 				requirements that MUST be satisfied by devices to be compliant to
 				the profile.
 			</p>
+			    <figure id="WoT Core Profile">
+                    <img src="images/WoT Core Profile.png"
+                        class="wot-profiles" alt="WoT Core Profile" />
+                    <figcaption>WoT Core Profile</figcaption>
+                </figure> 
 			<p>
 				Adoption of the <a>WoT Core Profile</a> will significantly limit the
 				implementation burden of device and cloud implementors.
@@ -272,6 +277,10 @@
 			<dt>
 				<dfn>TD Specification</dfn>
 			</dt>
+			<dd>Synonym for The WoT <a>Thing Description Specification</a>.</dd>
+			<dt>
+				<dfn>Thing Description Specification</dfn>
+			</dt>
 			<dd>The WoT Thing Description Specification
 				[[wot-thing-description]].</dd>
 			<dt>
@@ -311,7 +320,7 @@
 				<dfn>Profile</dfn>
 			</dt>
 			<dd>A set of prescriptive rules, to ensure that compliant
-				implementations satisfy the semantic guarantees, that are implied by
+				implementations satisfy the semantic guarantees that are implied by
 				them.
 			<dt>
 				<dfn>WoT Core Profile</dfn>
@@ -423,12 +432,18 @@
 				additional (protocol-specific) constraints.</p>
 
 			<p>A profile is not exclusive, i.e. a thing may conform to
-				multiple profiles. Profiles can build on top of each other, extended
-				profiles, can be derived from the core profile.</p>
+				multiple profiles. Profiles can build on top of each other or overlap, 
+				extended profiles can be derived from the core profile.</p>
+
+			    <figure id="WoT Profiles">
+                    <img src="images/WoT Profiles.png"
+                        class="wot-profiles" alt="WoT Profiles" />
+                    <figcaption>WoT Core Profile</figcaption>
+                </figure>
 
 			<p>
 				In the present document, we define a <a>Core Profile</a> by defining
-				a <a>Core Data Model</a> and a set of <a>Protocol Binding</a> Rules.
+				a <a>Core Data Model</a> and a set of <a href="#protocol-binding">Protocol Binding</a> Rules.
 				In the present version of this document we define a mapping to
 				HTTP(S). It is envisioned, that future versions of this document
 				contain additional mapping to Web Sockets and other protocols.
@@ -445,7 +460,7 @@
 			<a>WoT Core Profile</a>
 		</h2>
 			This section defines the <a>Core Profile</a> by defining
-				a <a>Core Data Model</a> and a set of <a>Protocol Binding</a> Rules.
+				a <a>Core Data Model</a> and a set of <a href="#protocol-binding">Protocol Binding</a> Rules.
 		<section id="core-data_model">
 			<h2>WoT Core Data Model</h2>
 
@@ -1269,8 +1284,8 @@
 		
 		<!-- Protocol Binding -->
 
-		<section>
-			<h3 id="protocol-binding">Protocol Binding</h3>
+		<section id="protocol-binding">
+			<h3>Protocol Binding</h3>
 
 			<section class="ednote">This section is work in progress
 				and not ready for review.</section>
@@ -1280,8 +1295,8 @@
 			defines additional behavior, e.g. timeouts, error behavior, action
 			semantics, ...
 
-			<section>
-				<h3 id="protocol-binding">HTTP Protocol Binding</h3>
+			<section id="http-protocol-binding">
+				<h3>HTTP Protocol Binding</h3>
 				<p>All communication is using JSON payloads over HTTP(s). The
 					content type header MUST be set to &quot;application/json&quot;.</p>
 
