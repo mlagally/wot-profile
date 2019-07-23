@@ -17,7 +17,7 @@ These rules have to be prescriptive, to ensure that compliant
 implementations satisfy the semantic guarantees, that are implied by
 them. We call this set of rules a **Profile*.
       
-The **WoT Profile** document serves two purposes:
+The **WoT Profile** specification serves two purposes:
 
 - It defines a generic **Profiling Mechanism** which
 provides a mechanism to describe a profile in an unambiguous way.
@@ -33,4 +33,4 @@ templates and other protocols will be defined in the near future.
 
 Devices that constrain their use of the Thing Description to the **WoT Core Profile** can **interoperate other out-of-the-box**.
 
-A rendered version of this document is available at: https://cdn.statically.io/gh/mlagally/wot-profile/master/index.html?env=dev
+A rendered version of the profile specification is available at: https://cdn.statically.io/gh/mlagally/wot-profile/master/index.html?env=dev
