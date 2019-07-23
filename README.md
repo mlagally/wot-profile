@@ -15,7 +15,7 @@ common behavior between implementations.
 
 These rules have to be prescriptive, to ensure that compliant
 implementations satisfy the semantic guarantees, that are implied by
-them. We call this set of rules a **Profile*.
+them. We call this set of rules a **Profile**.
       
 The **WoT Profile** specification serves two purposes:
 
