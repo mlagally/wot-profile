@@ -24,8 +24,7 @@ provides a mechanism to describe a profile in an unambiguous way.
 This mechanism can be used to define additional profiles.
 
 - In addition it defines a **Core Profile** of the Thing Description 
-for use with the HTTP(S) and
-selected notification protocols. The <a>Core Profile</a> formalizes
+for use with selected protocols. The <a>Core Profile</a> formalizes
 the results of several plug-fests that were conducted by the WoT
 Interest Group and of tests that were conducted as part of the
 development. It is expected that additional profiles for thing
