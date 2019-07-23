@@ -77,7 +77,7 @@
 <body>
 	<section id="abstract">
 		<p>The W3C WoT Thing Architecture [[wot-architecture]] and WoT
-			Thing Description [[wot-thing-description]] defines a very powerful
+			Thing Description [[wot-thing-description]] define a powerful
 			description mechanism and a format to describe myriads of very
 			different devices, which may be connected over various protocols. The
 			format is very flexible and open and puts very few normative
@@ -93,7 +93,8 @@
 			These rules have to be prescriptive, to ensure that compliant
 			implementations satisfy the semantic guarantees, that are implied by
 			them. We call this set of rules a <a>Profile</a>.
-		<p>The present document serves two purposes:</p>
+		<p>The <strong>WoT Profile Specification</strong> as defined in the 
+        present document serves two purposes:</p>
 		<ul>
 			<li>It defines a generic <strong>Profiling Mechanism</strong> which
 				provides a mechanism to describe a profile in an unambiguous way.
@@ -112,6 +113,13 @@
 			Devices that constrain their use of the Thing Description to the <a>WoT
 				Core Profile</a> can interoperate with each other out-of-the-box.
 		</p>
+        <p>
+            A later version of this document will define additional profiles:
+        </p>
+        <ul>
+        <li>Thing Template Profile</li>
+        <li>Digital Twin Profile</li>
+        </ul>
 	</section>
 
 	<section id='sotd'></section>
@@ -443,10 +451,13 @@
 
 			<p>
 				In the present document, we define a <a>Core Profile</a> by defining
-				a <a>Core Data Model</a> and a set of <a href="#protocol-binding">Protocol Binding</a> Rules.
+				a <a>Core Data Model</a> and a set of <a href="#protocol-binding">Protocol Binding</a> Rules
+                for selected protocols.
+                <!--
 				In the present version of this document we define a mapping to
 				HTTP(S). It is envisioned, that future versions of this document
 				contain additional mapping to Web Sockets and other protocols.
+                -->
 			</p>
 		</section>
 	</section>
