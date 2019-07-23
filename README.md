@@ -1,7 +1,7 @@
 # WoT Profile
 
-The W3C WoT Thing Architecture [[wot-architecture]] and WoT
-Thing Description [[wot-thing-description]] defines a very powerful
+The W3C WoT Thing Architecture [https://www.w3.org/TR/wot-architecture/] and WoT
+Thing Description [https://www.w3.org/TR/wot-thing-description/] defines a very powerful
 description mechanism and a format to describe myriads of very
 different devices, which may be connected over various protocols. The
 format is very flexible and open and puts very few normative
@@ -33,3 +33,4 @@ templates and other protocols will be defined in the near future.
 
 Devices that constrain their use of the Thing Description to the **WoT Core Profile** can **interoperate other out-of-the-box**.
 
+A rendered version of this document is available at: https://cdn.statically.io/gh/mlagally/wot-profile/master/index.html?env=dev
