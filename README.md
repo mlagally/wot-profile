@@ -2,7 +2,7 @@
 
 The [W3C Web of Things Architecture](https://www.w3.org/TR/wot-architecture/) and 
 [Web of Things Thing Description](https://www.w3.org/TR/wot-thing-description/) 
-define a powerful mechanism and a format to describe myriads of very
+define a powerful mechanism and a format to describe a broad spectrum of very
 different devices, which may be connected over various protocols. The
 format is very flexible and open and puts very few normative
 requirements on devices that implement it.
